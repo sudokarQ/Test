@@ -2,15 +2,18 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.Metrics;
+using System.Globalization;
 using System.IO;
+using System.IO.Pipes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows.Data;
 
 namespace Test.Model
 {
-
+   
 
 
 
@@ -26,6 +29,7 @@ namespace Test.Model
         public int AvgSteps { get; set; }
         public int MaxSteps { get; set; }
         public int MinSteps { get; set; }
+        public bool IsMarked { get; set; }
 
         public static Dictionary<string, List<Users>> DicOfUser
         {
@@ -84,11 +88,24 @@ namespace Test.Model
                 liiist[0].AvgSteps = sum / 30;
                 liiist[0].MaxSteps = max;
                 liiist[0].MinSteps = min;
+                if (min * 1.2 <= liiist[0].AvgSteps || max * 0.8 >= liiist[0].AvgSteps)
+                    liiist[0].IsMarked = true;
                 
             }
                 
 
                 return dic;
+        }
+
+        public void GetJSON(object obj)
+        {
+            KeyValuePair<string, List<Users>> dic = (KeyValuePair<string, List<Users>>)obj;
+            Users resultUser = dic.Value[0];
+            List<int> stepsByDays = new List<int>();
+            var list = dic.Value;
+            List<int> resultList = list.Select(x => x.Steps).ToList();
+            File.WriteAllText(Directory.GetCurrentDirectory() + "\\result.JSON", JsonConvert.SerializeObject(resultUser));
+            File.AppendAllText(Directory.GetCurrentDirectory() + "\\result.JSON", "\n{" + string.Join(", ", resultList) + "}");
         }
 
         public static string DirGet()
