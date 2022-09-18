@@ -1,0 +1,46 @@
+﻿<Window x:Class="Test.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Test"
+        xmlns:DV="clr-namespace:System.Windows.Controls.DataVisualization;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+        xmlns:DVC="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit" xmlns:DVC1="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=DotNetProjects.DataVisualization.Toolkit"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid Margin="10" MouseWheel="Grid_MouseWheel">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <ListBox Name="LB1" ItemsSource="{DynamicResource Users}" SelectedItem="{Binding SelectedData}" Grid.IsSharedSizeScope="True" Grid.Column="0" SelectionChanged="LB1_SelectionChanged" >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition SharedSizeGroup="ФИО" />
+                            <ColumnDefinition SharedSizeGroup="Среднее кол-во шагов" />
+                            <ColumnDefinition SharedSizeGroup="Лучший результат за весь период" />
+                            <ColumnDefinition SharedSizeGroup="Худший результат за весь период" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Name ="FIO" Margin="2" Text="{Binding Key}" Grid.Column="0"/>
+                        <TextBlock Margin="2" Text="{Binding Value[0].AvgSteps}" Grid.Column="1"/>
+                        <TextBlock Margin="2"  Text="{Binding Value[0].MinSteps}" Grid.Column="2"/>
+                        <TextBlock Margin="2"  Text="{Binding Value[0].MaxSteps}" Grid.Column="3"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <DVC1:Chart Name="mcChart" 
+            Grid.Column="1"
+            Width="auto" Height="auto"  
+            Background="LightSteelBlue">
+            <DVC1:Chart.Series>
+                <DVC1:LineSeries Title=" Monthly Count"  
+                        IndependentValueBinding="{Binding Path=Key}"  
+                        DependentValueBinding="{Binding Path=Value}" Loaded="LineSeries_Loaded">
+                </DVC1:LineSeries>
+            </DVC1:Chart.Series>
+        </DVC1:Chart>
+    </Grid>
+</Window>
