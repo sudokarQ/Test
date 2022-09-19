@@ -113,6 +113,8 @@ namespace Test
                 if (Convert.ToInt32(avgTextBlock.Text) < Convert.ToInt32(maxTextBlock.Text) * 0.8 || Convert.ToInt32(avgTextBlock.Text) < Convert.ToInt32(minTextBlock.Text) * 1.2)
                 {
                     avgTextBlock.Background = Brushes.Yellow;
+                    minTextBlock.Background = Brushes.Yellow;
+                    maxTextBlock.Background = Brushes.Yellow;
                 }
             }
             
@@ -132,11 +134,7 @@ namespace Test
 
         }
 
-        private void Grid_MouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            var s = LB1.SelectedItem;
-            MessageBox.Show(s.ToString());
-        }
+        
 
         private void LineSeries_Loaded(object sender, RoutedEventArgs e)
         {

@@ -108,10 +108,6 @@ namespace Test.Model
             File.AppendAllText(Directory.GetCurrentDirectory() + "\\result.JSON", "\n{" + string.Join(", ", resultList) + "}");
         }
 
-        public static string DirGet()
-        {
-            return Directory.GetCurrentDirectory() + "\\TestData\\";
-            
-        }
+        
     }
 }

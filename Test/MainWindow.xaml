@@ -8,28 +8,35 @@
         xmlns:DVC="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit" xmlns:DVC1="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=DotNetProjects.DataVisualization.Toolkit"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid Margin="10" MouseWheel="Grid_MouseWheel">
+    <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
         </Grid.RowDefinitions>
-        <ListBox Name="LB1" ItemsSource="{DynamicResource Users}" SelectedItem="{Binding SelectedData}" Grid.IsSharedSizeScope="True" Grid.Column="0" Grid.Row="0" SelectionChanged="LB1_SelectionChanged" >
+        <Canvas Width="auto" UseLayoutRounding="False">
+            <TextBlock Text="ФИО" Grid.Column="0" Grid.Row = "0" Canvas.Left="12" Canvas.Top="7" HorizontalAlignment="Left" VerticalAlignment="Center"  />
+            <TextBlock Text="Avg" Grid.Column="0" Grid.Row = "0" Canvas.Left="142" Canvas.Top="7" HorizontalAlignment="Left" VerticalAlignment="Center"  />
+            <TextBlock  Text="Min" Grid.Column="0" Grid.Row = "0" Canvas.Left="186" Canvas.Top="7" HorizontalAlignment="Left" VerticalAlignment="Center" />
+            <TextBlock  Text="Max" Grid.Column="0" Grid.Row = "0" Canvas.Left="228" Canvas.Top="7" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        </Canvas>
+        <ListBox Name="LB1" ItemsSource="{DynamicResource Users}" SelectedItem="{Binding SelectedData}" Grid.IsSharedSizeScope="True" Grid.Column="0" Grid.Row="1" SelectionChanged="LB1_SelectionChanged" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Name="grid"  >
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition SharedSizeGroup="ФИО" />
-                            <ColumnDefinition SharedSizeGroup="Среднее кол-во шагов" />
-                            <ColumnDefinition SharedSizeGroup="Лучший результат за весь период" />
-                            <ColumnDefinition SharedSizeGroup="Худший результат за весь период" />
+                            <ColumnDefinition SharedSizeGroup="a" />
+                            <ColumnDefinition SharedSizeGroup="Some Text" />
+                            <ColumnDefinition SharedSizeGroup="Some Text" />
+                            <ColumnDefinition SharedSizeGroup="Some Text" />
                         </Grid.ColumnDefinitions>
 
-                        
-                        
+
+
                         <!--<TextBlock  Margin="2" Text="ФИО" Grid.Column="0" Grid.Row = "0"  />
                         <TextBlock  Margin="2" Text="Среднее значение" Grid.Column="1" Grid.Row = "0" />
                         <TextBlock  Margin="2"  Text="Минимальное значение" Grid.Column="2" Grid.Row = "0" />
@@ -43,9 +50,11 @@
 
                     <!--<DataTemplate.Triggers>
                         <DataTrigger Binding="{Binding SelectedData}" Value="{d:Binding}">
-                            --><!--<Setter TargetName="phoneTitle" Property="FontWeight" Value="Bold" />
+                            -->
+                    <!--<Setter TargetName="phoneTitle" Property="FontWeight" Value="Bold" />
                             <Setter TargetName="phoneImageBorder" Property="BorderBrush" Value="Red" />
-                            <Setter TargetName="phoneImageBorder" Property="BorderThickness" Value="3" />--><!--
+                            <Setter TargetName="phoneImageBorder" Property="BorderThickness" Value="3" />-->
+                    <!--
                         </DataTrigger>-->
                     <!--</DataTemplate.Triggers>-->
                 </DataTemplate>
@@ -53,7 +62,7 @@
         </ListBox>
         <DVC1:Chart Name="mcChart" 
             Grid.Column="1"
-            Grid.Row="0"
+            Grid.Row="1"
             Width="auto" Height="auto"  
             Background="LightSteelBlue">
             <DVC1:Chart.Series>
@@ -63,7 +72,7 @@
                 </DVC1:LineSeries>
             </DVC1:Chart.Series>
         </DVC1:Chart>
-        <Button Content="Выделить результаты" Grid.Row="1" Grid.Column="1" Click="Button_Click" Height="auto" Width="auto"/>
-        <Button Name="SaveBtn" Content="Сохранить на диск" IsEnabled="False" Grid.Row="1" Grid.Column="0"  Height="auto" Width="auto" Click="Button_Click_1"/>
+        <Button Content="Выделить результаты" Grid.Row="2" Grid.Column="1" Click="Button_Click" Height="auto" Width="auto"/>
+        <Button Name="SaveBtn" Content="Сохранить на диск" IsEnabled="False" Grid.Row="2" Grid.Column="0"  Height="auto" Width="auto" Click="Button_Click_1"/>
     </Grid>
 </Window>
